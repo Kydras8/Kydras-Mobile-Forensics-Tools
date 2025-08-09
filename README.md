@@ -107,19 +107,4 @@ git clone --branch v1.0.0 https://github.com/Kydras8/Kydras-Mobile-Forensics-Too
 
 🌐 Project Website (GitHub Pages)
 
-If enabled (Settings → Pages → Branch: main / /docs):
-https://kydras8.github.io/Kydras-Mobile-Forensics-Tools/
-⚖️ Legal
-
-For devices you own or have explicit authorization to examine. You’re responsible for compliance with laws, policies, and consent.
-📜 License
-
-MIT — see LICENSE.
-EOF
-Commit + push in one shot
-
-git add README.md && git commit -m "Docs: full README for recover + diag scripts" && git push origin main
-
-
-That’s it. Refresh your repo—README should be live with badges, both scripts documented, flags, troubleshooting, and release instructions. Want me to add a tiny “How to pair over Wi-Fi” snippet to the README too?
 
