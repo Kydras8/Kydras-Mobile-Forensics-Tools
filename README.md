@@ -50,3 +50,76 @@ Linux (Kali/Ubuntu/Debian) and:
 ```bash
 sudo apt update
 sudo apt install -y android-tools-adb testdisk pv
+
+Phone: Developer options → USB debugging (ON) and approve the ADB prompt
+(Or use Wireless debugging to pair/connect over Wi-Fi.)
+
+🚦 Quick Start
+
+git clone https://github.com/Kydras8/Kydras-Mobile-Forensics-Tools.git
+cd Kydras-Mobile-Forensics-Tools
+chmod +x pixel9_recover.sh pixel9_diag_dump.sh
+
+# Optional: see what’s on the phone
+./pixel9_diag_dump.sh
+
+# One-shot recovery (build tar on-phone, pull with resume, extract, optional PhotoRec)
+./pixel9_recover.sh --cleanup-phone
+
+Useful flags
+
+./pixel9_recover.sh --no-extract      # keep only the tar; extract later
+./pixel9_recover.sh --no-photorec     # skip launching PhotoRec
+./pixel9_recover.sh --cleanup-phone   # delete on-phone tar after successful pull
+
+📂 Output Structure
+
+~/pixel9_cases/case-YYYYMMDD-HHMMSS/
+ ├── tar/_sd_dump.tar           # Raw phone dump
+ ├── sdcard_extracted_ok/       # Extracted files (if enabled)
+ ├── deleted_carve/             # PhotoRec outputs (if run)
+ ├── fallback_pull/             # Directory pull if tar fails
+ └── logs/run.log               # Script log
+
+🧰 Troubleshooting
+
+    adb devices shows unauthorized
+    Revoke USB debugging on phone → toggle USB debugging OFF/ON → replug → approve prompt.
+    You can also pair via Wireless debugging (Developer options).
+
+    Copy seems stuck
+    It’s usually building the on-phone tar or waiting on ADB. Keep the screen unlocked.
+    You can watch the local file grow: pv -pterb ~/pixel9_cases/.../_sd_dump.tar
+
+    Permission errors under /sdcard/Android/data
+    Normal on Android 11+ (scoped storage). Prefer /sdcard/Android/media, DCIM, Pictures, Download.
+
+🔖 Versioning & Releases
+
+Tag a version so others can pin it:
+
+git tag -a v1.0.0 -m "Initial public release"
+git push origin v1.0.0
+
+Clone a specific version:
+
+git clone --branch v1.0.0 https://github.com/Kydras8/Kydras-Mobile-Forensics-Tools.git
+
+🌐 Project Website (GitHub Pages)
+
+If enabled (Settings → Pages → Branch: main / /docs):
+https://kydras8.github.io/Kydras-Mobile-Forensics-Tools/
+⚖️ Legal
+
+For devices you own or have explicit authorization to examine. You’re responsible for compliance with laws, policies, and consent.
+📜 License
+
+MIT — see LICENSE.
+EOF
+Commit + push in one shot
+
+git add README.md && git commit -m "Docs: full README for recover + diag scripts" && git push origin main
+
+
+That’s it. Refresh your repo—README should be live with badges, both scripts documented, flags, troubleshooting, and release instructions. Want me to add a tiny “How to pair over Wi-Fi” snippet to the README too?
+
